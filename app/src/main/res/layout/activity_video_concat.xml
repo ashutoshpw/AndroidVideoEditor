@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fadeScrollbars="false"
+    android:layout_weight="1"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cardview_light_background">
+
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp200"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/dp20"
+            android:layout_marginRight="@dimen/dp20"
+            android:layout_marginTop="@dimen/dp5" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/uploadVideo"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:layout_margin="@dimen/dp5"
+                android:background="@drawable/video1"
+                android:gravity="center"
+                android:padding="@dimen/dp5"
+                android:singleLine="true"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/sp16" />
+
+            <TextView
+                android:id="@+id/uploadVideo1"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:layout_margin="@dimen/dp5"
+                android:background="@drawable/video2"
+                android:gravity="center"
+                android:padding="@dimen/dp5"
+                android:singleLine="true"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/sp16" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/join"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/linearLayout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/join"
+            android:gravity="center"
+            android:padding="@dimen/dp5"
+            android:singleLine="true"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/sp16" />
+
+        <CheckBox
+            android:id="@+id/choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/join"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:text="Keep original audio source." />
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/choice"
+            android:layout_centerHorizontal="true"
+            android:text="Note: This process may take time"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/banner"
+            ads:layout_constraintBottom_toBottomOf="parent"
+            ads:layout_constraintEnd_toEndOf="parent"
+            ads:layout_constraintStart_toStartOf="parent"
+            ads:layout_constraintTop_toTopOf="parent"
+            ads:layout_constraintVertical_bias="1.0" />
+
+    </RelativeLayout>
+
+
+</ScrollView>

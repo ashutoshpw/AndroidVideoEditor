@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.devil.videoeditor">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher2"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="video.cutter.mp3.activity.MainActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="video.cutter.mp3.activity.VideoPreviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="video.cutter.mp3.activity.AudioPreviewActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="video.cutter.mp3.activity.VideoCutterActivity" />
+        <activity android:name="video.cutter.mp3.activity.ExtractAudioActivity" />
+        <activity android:name="video.cutter.mp3.activity.AudioCutterActivity" />
+        <activity android:name="video.cutter.mp3.activity.AudioVideoMergeActivity"/>
+        <activity android:name="video.cutter.mp3.activity.VideoConcatActivity" />
+    </application>
+
+</manifest>

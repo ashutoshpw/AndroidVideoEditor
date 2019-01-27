@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:rsb="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fadeScrollbars="false"
+    android:layout_weight="1"
+    android:fillViewport="true">
+
+    <RelativeLayout
+
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/background_light">
+
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp200"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/dp20"
+            android:layout_marginRight="@dimen/dp20"
+            android:layout_marginTop="@dimen/dp5" />
+
+
+        <org.florescu.android.rangeseekbar.RangeSeekBar
+            android:id="@+id/rangeSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/videoView"
+            android:layout_margin="@dimen/dp5"
+            app:alwaysActive="true"
+            app:showLabels="false"
+            app:thumbDisabled="@drawable/seekbar"
+            app:thumbNormal="@drawable/seekbar"
+            app:thumbPressed="@drawable/seekbar"
+            rsb:activeColor="#ED1C24"
+            rsb:textAboveThumbsColor="#000000" />
+
+        <TextView
+            android:id="@+id/tvLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/rangeSeekBar"
+            android:layout_alignStart="@+id/rangeSeekBar"
+            android:layout_below="@+id/rangeSeekBar"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/tvRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/rangeSeekBar"
+            android:layout_alignRight="@+id/rangeSeekBar"
+            android:layout_below="@+id/rangeSeekBar"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/tvInstructions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvRight"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/dp5"
+            android:gravity="center"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/uploadVideo"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_alignLeft="@+id/videoView"
+            android:layout_alignStart="@+id/videoView"
+            android:layout_below="@+id/tvInstructions"
+            android:background="@drawable/addvideo"
+            android:gravity="center"
+            android:padding="@dimen/dp5"
+            android:singleLine="true"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/sp16" />
+
+        <TextView
+            android:id="@+id/cropVideo"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/tvInstructions"
+            android:layout_toEndOf="@+id/tvInstructions"
+            android:layout_toRightOf="@+id/tvInstructions"
+            android:background="@drawable/cutvid"
+            android:gravity="center"
+            android:padding="@dimen/dp2"
+            android:singleLine="true"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/sp16" />
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/banner"
+            ads:layout_constraintBottom_toBottomOf="parent"
+            ads:layout_constraintEnd_toEndOf="parent"
+            ads:layout_constraintStart_toStartOf="parent"
+            ads:layout_constraintTop_toTopOf="parent"
+            ads:layout_constraintVertical_bias="1.0" />
+    </RelativeLayout>
+
+</ScrollView>
