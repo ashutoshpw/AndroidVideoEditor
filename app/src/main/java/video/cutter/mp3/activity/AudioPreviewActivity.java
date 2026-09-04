@@ -64,7 +64,10 @@ public class AudioPreviewActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         if (mMediaPlayer != null) {
-            mVisualizer.release();
+            if (mVisualizer != null) {
+                mVisualizer.release();
+                mVisualizer = null;
+            }
             mMediaPlayer.release();
             mMediaPlayer = null;
         }
@@ -76,42 +79,77 @@ public class AudioPreviewActivity extends AppCompatActivity {
         TextView tvInstruction = findViewById(R.id.tvInstruction);
         tvInstruction.setText(String.format("Audio stored at path %s", filePath));
         mMediaPlayer = MediaPlayer.create(this, Uri.parse(filePath));
+        if (mMediaPlayer == null) {
+            return;
+        }
 
         setupVisualizerFxAndUI();
-        // Make sure the visualizer is enabled only when you actually want to
-        // receive data, and
-        // when it makes sense to receive data.
-        mVisualizer.setEnabled(true);
+        if (mVisualizer != null) {
+            try {
+                // Make sure the visualizer is enabled only when you actually want to
+                // receive data, and
+                // when it makes sense to receive data.
+                mVisualizer.setEnabled(true);
+            } catch (RuntimeException e) {
+                mVisualizer.release();
+                mVisualizer = null;
+            }
+        }
         // When the stream ends, we don't need to collect any more data. We
         // don't do this in
-        // setupVisualizerFxAndUI because we likely  to have more,
+        // setupVisualizerFxAndUI because we want to have more,
         // non-Visualizer related code
         // in this callback.
         mMediaPlayer
                 .setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     public void onCompletion(MediaPlayer mediaPlayer) {
-                        mVisualizer.setEnabled(false);
+                        if (mVisualizer != null) {
+                            try {
+                                mVisualizer.setEnabled(false);
+                            } catch (RuntimeException e) {
+                                mVisualizer.release();
+                                mVisualizer = null;
+                            }
+                        }
                     }
                 });
         mMediaPlayer.start();
         mMediaPlayer.setLooping(true);
 
     }
+
+    public static boolean hasUsableAudioSession(int audioSessionId) {
+        return audioSessionId > 0;
+    }
+
     private void setupVisualizerFxAndUI() {
+        final int audioSessionId = mMediaPlayer.getAudioSessionId();
+        if (!hasUsableAudioSession(audioSessionId)) {
+            return;
+        }
 
-        // Create the Visualizer object and attach it to our media player.
-        mVisualizer = new Visualizer(mMediaPlayer.getAudioSessionId());
-        mVisualizer.setCaptureSize(Visualizer.getCaptureSizeRange()[1]);
-        mVisualizer.setDataCaptureListener(
-                new Visualizer.OnDataCaptureListener() {
-                    public void onWaveFormDataCapture(Visualizer visualizer,
-                                                      byte[] bytes, int samplingRate) {
-                        mVisualizerView.updateVisualizer(bytes);
-                    }
+        try {
+            // Create the Visualizer object and attach it to our media player.
+            mVisualizer = new Visualizer(audioSessionId);
+            mVisualizer.setCaptureSize(Visualizer.getCaptureSizeRange()[1]);
+            mVisualizer.setDataCaptureListener(
+                    new Visualizer.OnDataCaptureListener() {
+                        public void onWaveFormDataCapture(Visualizer visualizer,
+                                                          byte[] bytes, int samplingRate) {
+                            if (mVisualizerView != null) {
+                                mVisualizerView.updateVisualizer(bytes);
+                            }
+                        }
 
-                    public void onFftDataCapture(Visualizer visualizer,
-                                                 byte[] bytes, int samplingRate) {
-                    }
-                }, Visualizer.getMaxCaptureRate() / 2, true, false);
+                        public void onFftDataCapture(Visualizer visualizer,
+                                                     byte[] bytes, int samplingRate) {
+                        }
+                    }, Visualizer.getMaxCaptureRate() / 2, true, false);
+        } catch (RuntimeException e) {
+            if (mVisualizer != null) {
+                mVisualizer.release();
+                mVisualizer = null;
+            }
+        }
     }
 }
